@@ -1,0 +1,37 @@
+<div class="background-image">
+    <h1> Book Store </h1>
+
+    <div class="filter-section">
+        <input [(ngModel)]="filter" placeholder="Search by Title, Author, or Category" (input)="applyFilter()"/>
+    </div>
+
+    <div class="book-list">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of filteredBooks">
+                        <td>{{ book["title"] }}</td>
+                        <td>{{ book["author"]["name"] }}</td>
+                        <td>{{ categoriesToString(book['categories']) }}</td>
+                        <td>
+                            <select [(ngModel)]="book.selectedCategory">
+                                <option *ngFor="let category of book['categories']" [value]="category.name">
+                                    {{ category.name }}
+                                </option>
+                            </select>
+                            <button (click)="removeCategory(book.id, book.selectedCategory)">Delete Category</button>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
